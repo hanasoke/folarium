@@ -39,9 +39,13 @@ class Main extends CI_Controller {
   // save product to database
   function save_employee() {
 
-    $this->form_validation->set_rules('name', 'Name', 'required|trim');
-    $this->form_validation->set_rules('email', 'Email', 'required|trim');
-    $this->form_validation->set_rules('age', 'Age', 'required|trim');
+    $this->form_validation->set_rules('name', 'Name', 'required|trim|is_unique[employee.name]', [
+      'is_unique' => 'This Name has already registered!'
+    ]);
+    $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[employee.email]', [
+      'is_unique' => 'This email has already registered!'
+    ]);
+    $this->form_validation->set_rules('age', 'Age', 'required|trim|integer');
     $this->form_validation->set_rules('address', 'Address', 'required|trim');
     $this->form_validation->set_rules('position', 'Position', 'required|trim');
 
@@ -62,7 +66,9 @@ class Main extends CI_Controller {
 
       $this->EmployeeModel->save_employee($position_id,$contract_id,$name,$email,$age,$address);
 
-      $this->session->set_flashdata('msg', '<div class="alert alert-success alert-dismissible fade show" role="alert">Employee Saved<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+      $this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert">
+      A Employee has been Added
+      </div>');
       redirect('main/index');
     }
   }
@@ -94,23 +100,26 @@ class Main extends CI_Controller {
 
   // update product to database
   function update_employee() {
-    $this->form_validation->set_rules('employee_id', 'ID', 'required|trim');
     $this->form_validation->set_rules('name', 'Name', 'required|trim');
     $this->form_validation->set_rules('email', 'Email', 'required|trim');
     $this->form_validation->set_rules('age', 'Age', 'required|trim');
     $this->form_validation->set_rules('address', 'Address', 'required|trim');
     $this->form_validation->set_rules('position', 'Position', 'required|trim');
 
-    $data['title'] = 'Update DataKu';
+    $data['title'] = 'Edit Data';
     $data['position'] = $this->EmployeeModel->get_position()->result();
 
-    if($this->form_validation->run() == false) {
-      $this->load->view('templates/main_header', $data);
-      $this->load->view('templates/main_sidebar');
-      $this->load->view('templates/main_topbar');
-      $this->load->view('main/edit_employee', $data);
-    } else {
     $employee_id = $this->input->post('employee_id', TRUE);
+
+    if($this->form_validation->run() == false) {
+
+      $this->session->set_flashdata('msg', '<div class="alert alert-danger" role="alert">
+      Not Valid Data
+      </div>');
+      redirect('main/index');
+
+    } else {
+    // $employee_id = $this->input->post('employee_id', TRUE);
     $name = $this->input->post('name', TRUE);
     $email = $this->input->post('email', TRUE);
     $age = $this->input->post('age', TRUE);
@@ -119,7 +128,9 @@ class Main extends CI_Controller {
     $contract_id = $this->input->post('contract', TRUE);
 
     $this->EmployeeModel->update_employee($employee_id, $position_id,$contract_id, $name, $email, $age, $address);
-    $this->session->set_flashdata('msg', '<div class="alert alert-success alert-dismissible fade show" role="alert">Employee has been updated<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+    $this->session->set_flashdata('msg', '<div class="alert alert-success" role="alert">
+    A Employee has been updated
+    </div>');
     redirect('main/index');
     }
   }
@@ -127,7 +138,9 @@ class Main extends CI_Controller {
   function delete() {
     $employee_id = $this->uri->segment(3);
     $this->EmployeeModel->delete_employee($employee_id);
-    $this->session->set_flashdata('msg', '<div class="alert alert-danger alert-dismissible fade show" role="alert">Employee has been delated<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+    $this->session->set_flashdata('msg', '<div class="alert alert-danger" role="alert">
+    A Employee has been deleted
+    </div>');
     redirect('main/index');
   }
 

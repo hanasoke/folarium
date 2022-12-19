@@ -1,5 +1,3 @@
-
-
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
 
@@ -14,27 +12,26 @@
                 <div class="card-body">
                   <form action="<?= site_url('main/update_employee');?>" method="post">
                   <div class="form-group">
-                    <input type="text" class="form-control" name="employee_id" value="<?= $employee_id; ?>" placeholder="ID">
-                    <?= form_error('employee_id', '<small class="text-danger">', '</small>');?>
+                    <input type="hidden" class="form-control" name="employee_id" value="<?= $employee_id; ?>">
                   </div>
                   <div class="form-group">
                       <label for="name">Name</label>
-                      <input type="text" class="form-control" id="name" name="name" placeholder="Input Name" >
+                      <input type="text" class="form-control" id="name" name="name" placeholder="Input Name" value="<?= set_value('name'); ?>" >
                       <?= form_error('name', '<small class="text-danger">', '</small>');?>
                     </div>
                     <div class="form-group">
                       <label for="email">Email</label>
-                      <input type="text" class="form-control" id="email" name="email" placeholder="Input Email">
+                      <input type="text" class="form-control" id="email" name="email" placeholder="Input Email" value="<?= set_value('email'); ?>">
                       <?= form_error('email', '<small class="text-danger">', '</small>');?>
                     </div>
                     <div class="form-group">
                       <label for="age">Age</label>
-                      <input type="number" class="form-control" id="age" name="age" placeholder="Input the Age">
+                      <input type="number" class="form-control" id="age" name="age" placeholder="Input the Age" value="<?= set_value('age'); ?>">
                       <?= form_error('age', '<small class="text-danger">', '</small>');?>
                     </div>
                     <div class="form-group">
                       <label for="address">Address</label>
-                      <input type="text" class="form-control" name="address" id="address" placeholder="Input Address" placeholder="Input Address">
+                      <input type="text" class="form-control" name="address" id="address" placeholder="Input Address" placeholder="Input Address" value="<?= set_value('address'); ?>">
                       <?= form_error('address', '<small class="text-danger">', '</small>');?>
                     </div>
                     <div class="form-group">
@@ -69,24 +66,3 @@
 
       </div>
       <!-- End of Main Content -->
-
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2019</span>
-          </div>
-        </div>
-      </footer>
-      <!-- End of Footer -->
-
-    </div>
-    <!-- End of Content Wrapper -->
-
-  </div>
-  <!-- End of Page Wrapper -->
-
-
-</body>
-
-</html>

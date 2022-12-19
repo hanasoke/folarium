@@ -9,22 +9,22 @@
                   <form action="<?= site_url('main/save_employee');?>" method="post">
                   <div class="form-group">
                       <label for="name">Name</label>
-                      <input type="text" class="form-control" id="name" name="name" placeholder="Input Name">
+                      <input type="text" class="form-control" id="name" name="name" placeholder="Input Name" value="<?= set_value('name'); ?>">
                         <?= form_error('name', '<small class="text-danger">', '</small>');?>
                     </div>
                     <div class="form-group">
                       <label for="email">Email</label>
-                      <input type="text" class="form-control" id="email" name="email" placeholder="Input Email">
+                      <input type="text" class="form-control" id="email" name="email" placeholder="Input Email"  value="<?= set_value('email'); ?>">
                       <?= form_error('email', '<small class="text-danger">', '</small>');?>
                     </div>
                     <div class="form-group">
                       <label for="age">Age</label>
-                      <input type="number" class="form-control" id="age" name="age" placeholder="Input the Age">
+                      <input type="number" class="form-control" id="age" name="age" placeholder="Input the Age"  value="<?= set_value('age'); ?>">
                       <?= form_error('age', '<small class="text-danger">', '</small>');?>
                     </div>
                     <div class="form-group">
                       <label for="address">Address</label>
-                      <input type="text" class="form-control" name="address" id="address" placeholder="Input Address" placeholder="Input Address">
+                      <input type="text" class="form-control" name="address" id="address" placeholder="Input Address" placeholder="Input Address" value="<?= set_value('address'); ?>">
                       <?= form_error('address', '<small class="text-danger">', '</small>');?>
                     </div>
                     <div class="form-group">

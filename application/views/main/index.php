@@ -65,7 +65,7 @@
                             <?= $e->contract_length; ?>
                           </td>
                           <td>
-                            <a href="<?= site_url('main/get_edit/'.$e->employee_id); ?>" class="btn btn-sm btn-success">Edit</a>
+                            <a href="<?= site_url('main/get_edit/'.$e->employee_id); ?>" class="btn btn-sm btn-success mb-2">Edit</a>
                             <a href="<?= site_url('main/delete/'.$e->employee_id); ?>" class="btn btn-sm btn-danger">Delete</a>
                           </td>
                         </tr>
