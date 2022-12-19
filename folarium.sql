@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Dec 15, 2022 at 04:53 PM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 8.0.10
+-- Host: localhost:3306
+-- Generation Time: Dec 19, 2022 at 08:31 AM
+-- Server version: 5.7.24
+-- PHP Version: 7.4.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -24,276 +25,135 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jabatan`
+-- Table structure for table `contract`
 --
 
-CREATE TABLE `jabatan` (
-  `id` int(11) NOT NULL,
-  `jabatan` varchar(200) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `contract` (
+  `contract_id` int(11) NOT NULL,
+  `contract_position_id` int(11) NOT NULL,
+  `contract_length` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `jabatan`
+-- Dumping data for table `contract`
 --
 
-INSERT INTO `jabatan` (`id`, `jabatan`) VALUES
+INSERT INTO `contract` (`contract_id`, `contract_position_id`, `contract_length`) VALUES
+(17, 1, '1'),
+(18, 1, '2'),
+(19, 1, '3'),
+(20, 1, '5'),
+(21, 2, '1'),
+(22, 2, '2'),
+(23, 2, '3'),
+(24, 3, '1'),
+(25, 3, '2'),
+(26, 3, '3'),
+(27, 4, '1'),
+(28, 4, '2'),
+(29, 5, '1'),
+(30, 5, '2'),
+(31, 5, '3'),
+(32, 6, '1'),
+(33, 6, '2'),
+(34, 6, '3');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employee`
+--
+
+CREATE TABLE `employee` (
+  `employee_id` int(11) NOT NULL,
+  `employee_position_id` int(11) NOT NULL,
+  `employee_contract_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `age` int(11) NOT NULL,
+  `address` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `employee`
+--
+
+INSERT INTO `employee` (`employee_id`, `employee_position_id`, `employee_contract_id`, `name`, `email`, `age`, `address`) VALUES
+(3, 3, 26, 'Hanas', 'hanasbayupratama@gmail.com', 4, 'Tokyo'),
+(8, 4, 27, 'Samuel', 'samuel@yahoo.com', 26, 'Surabaya'),
+(10, 2, 22, 'Tom', 'tom@yahoo.com', 20, 'Makassar'),
+(11, 4, 28, 'Anna Mortgage', 'annamortgage@yahoo.com', 30, 'Makassar'),
+(14, 4, 28, 'Demba Ba', 'ba@gmail.com', 40, 'Makassar'),
+(15, 3, 25, 'Hanas Oke', 'hanasoke@gmail.com', 23, 'Hongkong'),
+(16, 4, 28, 'saia', 'saia@yahoo.com', 21, 'Surabaya'),
+(17, 4, 28, 'carlos', 'carlos@yahoo.com', 29, 'Buones Aires');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `position`
+--
+
+CREATE TABLE `position` (
+  `position_id` int(11) NOT NULL,
+  `position` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `position`
+--
+
+INSERT INTO `position` (`position_id`, `position`) VALUES
 (1, 'Customer Service'),
-(2, 'Product Manager');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `kontrak`
---
-
-CREATE TABLE `kontrak` (
-  `id` int(11) NOT NULL,
-  `massa_kontrak` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `kontrak`
---
-
-INSERT INTO `kontrak` (`id`, `massa_kontrak`) VALUES
-(1, 7),
-(2, 4);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pegawai`
---
-
-CREATE TABLE `pegawai` (
-  `id` int(11) NOT NULL,
-  `id_jabatan` int(11) NOT NULL,
-  `id_kontrak` int(11) NOT NULL,
-  `nama` varchar(255) NOT NULL,
-  `umur` int(11) NOT NULL,
-  `tempat_tinggal` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `pegawai`
---
-
-INSERT INTO `pegawai` (`id`, `id_jabatan`, `id_kontrak`, `nama`, `umur`, `tempat_tinggal`) VALUES
-(1, 1, 1, 'Samuel Etoo', 33, 'Granada'),
-(2, 2, 2, 'Anna Mortgage', 20, 'Surabaya');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user`
---
-
-CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
-  `name` varchar(128) NOT NULL,
-  `email` varchar(128) NOT NULL,
-  `image` varchar(128) NOT NULL,
-  `password` varchar(256) NOT NULL,
-  `role_id` int(11) NOT NULL,
-  `is_active` int(1) NOT NULL,
-  `date_created` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`id`, `name`, `email`, `image`, `password`, `role_id`, `is_active`, `date_created`) VALUES
-(3, 'Hanas Bayu Pratama', 'hanasbayupratama@gmail.com', 'default.jpg', '$2y$10$jeubTlk3z7KXSXSpWX6STeXaNSZ/5PduzlcI/pnzP/zKwPZHfQ28G', 2, 1, 1671033168),
-(7, 'admin', 'test@yahoo.com', 'default.jpg', '$2y$10$ZFsNPJwX79PQFiqq7Ft6qeFi5POGp8J6SYsFsiZbn1klj/c6b6xVy', 1, 1, 1671033982),
-(8, 'Clorismen Bekasi 7', 'clorismenbekasi7@gmail.com', 'default.jpg', '$2y$10$DQBKaViZrMY0McTHn8aYLe4pCxIMaIIMMZjtvh5Siox8J0UM3GpAC', 2, 1, 1671077644);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_access_menu`
---
-
-CREATE TABLE `user_access_menu` (
-  `id` int(11) NOT NULL,
-  `role_id` int(11) NOT NULL,
-  `menu_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `user_access_menu`
---
-
-INSERT INTO `user_access_menu` (`id`, `role_id`, `menu_id`) VALUES
-(1, 1, 1),
-(2, 1, 2),
-(3, 2, 2);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_menu`
---
-
-CREATE TABLE `user_menu` (
-  `id` int(11) NOT NULL,
-  `menu` varchar(128) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `user_menu`
---
-
-INSERT INTO `user_menu` (`id`, `menu`) VALUES
-(1, 'Admin'),
-(2, 'User');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_role`
---
-
-CREATE TABLE `user_role` (
-  `id` int(11) NOT NULL,
-  `role` varchar(128) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `user_role`
---
-
-INSERT INTO `user_role` (`id`, `role`) VALUES
-(1, 'Administrator'),
-(2, 'Member');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_sub_menu`
---
-
-CREATE TABLE `user_sub_menu` (
-  `id` int(11) NOT NULL,
-  `menu_id` int(11) NOT NULL,
-  `title` varchar(128) NOT NULL,
-  `url` varchar(128) NOT NULL,
-  `icon` varchar(128) NOT NULL,
-  `is_active` int(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `user_sub_menu`
---
-
-INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active`) VALUES
-(1, 1, 'Dashboard', 'admin', 'fas fa-fw fa-home', 1),
-(2, 2, 'My Profile', 'user', 'fas fa-fw fa-user', 1),
-(3, 2, 'Edit Profile', 'user/edit', 'fas fa-fw fa-user-edit', 1);
+(2, 'Front End Developer'),
+(3, 'FullStack Developer'),
+(4, 'Chief Marketing Office'),
+(5, 'Supervisor'),
+(6, 'Copywriter');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `jabatan`
+-- Indexes for table `contract`
 --
-ALTER TABLE `jabatan`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `contract`
+  ADD PRIMARY KEY (`contract_id`);
 
 --
--- Indexes for table `kontrak`
+-- Indexes for table `employee`
 --
-ALTER TABLE `kontrak`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `employee`
+  ADD PRIMARY KEY (`employee_id`);
 
 --
--- Indexes for table `pegawai`
+-- Indexes for table `position`
 --
-ALTER TABLE `pegawai`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `user_access_menu`
---
-ALTER TABLE `user_access_menu`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `user_menu`
---
-ALTER TABLE `user_menu`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `user_role`
---
-ALTER TABLE `user_role`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `user_sub_menu`
---
-ALTER TABLE `user_sub_menu`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `position`
+  ADD PRIMARY KEY (`position_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `jabatan`
+-- AUTO_INCREMENT for table `contract`
 --
-ALTER TABLE `jabatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `contract`
+  MODIFY `contract_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
--- AUTO_INCREMENT for table `kontrak`
+-- AUTO_INCREMENT for table `employee`
 --
-ALTER TABLE `kontrak`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `employee`
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- AUTO_INCREMENT for table `pegawai`
+-- AUTO_INCREMENT for table `position`
 --
-ALTER TABLE `pegawai`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `user`
---
-ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `user_access_menu`
---
-ALTER TABLE `user_access_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `user_menu`
---
-ALTER TABLE `user_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `user_role`
---
-ALTER TABLE `user_role`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `user_sub_menu`
---
-ALTER TABLE `user_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `position`
+  MODIFY `position_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
